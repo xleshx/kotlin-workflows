@@ -9,8 +9,8 @@ internal class BaseCasesTest {
     @Test
     fun `should return Workflows with instances`() {
 
-        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
-        val workflowInstances = getParsedObjectsSequence("workflowInstances.data",
+        val workflows = getParsedObjectsSequence("./data/workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
+        val workflowInstances = getParsedObjectsSequence("./data/workflowInstances.data",
                 getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         val result = getWorkflowWithInstances(workflowInstances, workflows)
@@ -26,8 +26,8 @@ internal class BaseCasesTest {
     @Test
     fun `should return Workflows with running instance counts`() {
 
-        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
-        val workflowInstances = getParsedObjectsSequence("workflowInstances.data",
+        val workflows = getParsedObjectsSequence("./data/workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
+        val workflowInstances = getParsedObjectsSequence("./data/workflowInstances.data",
                 getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         val result = getWorkflowWithCounts(workflows, workflowInstances)
@@ -41,9 +41,9 @@ internal class BaseCasesTest {
     @Test
     fun `should return Contractors with running instance counts`() {
 
-        val contractors = getParsedObjectsSequence("./contractors.data", getContractorsConfig(),
+        val contractors = getParsedObjectsSequence("./data/contractors.data", getContractorsConfig(),
                 ::contractorFactory).toList()
-        val workflowInstances = getParsedObjectsSequence("workflowInstances.data",
+        val workflowInstances = getParsedObjectsSequence("./data/workflowInstances.data",
                 getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         val result = getContractorsHavingRunningWorkflows(contractors, workflowInstances)

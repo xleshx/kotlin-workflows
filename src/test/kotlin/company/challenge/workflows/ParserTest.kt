@@ -8,7 +8,7 @@ class ParserTest {
 
     @Test
     fun `successfully parse workflows from the file`() {
-        val parsed = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
+        val parsed = getParsedObjectsSequence("./data/workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
         assertThat(parsed).hasSize(3)
         assertThat(parsed).extracting("id").contains("1", "2", "3")
         assertThat(parsed).extracting("name")
@@ -17,7 +17,7 @@ class ParserTest {
 
     @Test
     fun `successfully parse workflow instances from the file`() {
-        val parsed = getParsedObjectsSequence("./workflowInstances.data",
+        val parsed = getParsedObjectsSequence("./data/workflowInstances.data",
                 getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         assertThat(parsed).hasSize(18)
@@ -32,7 +32,7 @@ class ParserTest {
 
     @Test
     fun `successfully parse employees from the file`() {
-        val parsed = getParsedObjectsSequence("./employees.data", getEmployeeConfig(), ::employeeFactory).toList()
+        val parsed = getParsedObjectsSequence("./data/employees.data", getEmployeeConfig(), ::employeeFactory).toList()
         assertThat(parsed).hasSize(6)
         assertThat(parsed).extracting("employeeId").contains("0009", "0199", "0003", "0112", "0200", "0198")
         assertThat(parsed).extracting("email")
@@ -42,7 +42,7 @@ class ParserTest {
 
     @Test
     fun `successfully parse contractors from the file`() {
-        val parsed = getParsedObjectsSequence("./contractors.data", getContractorsConfig(), ::contractorFactory).toList()
+        val parsed = getParsedObjectsSequence("./data/contractors.data", getContractorsConfig(), ::contractorFactory).toList()
         assertThat(parsed).hasSize(3)
         assertThat(parsed).extracting("contractorName").contains("con24", "con99", "con07")
         assertThat(parsed).extracting("email")

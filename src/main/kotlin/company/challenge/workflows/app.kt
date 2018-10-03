@@ -15,15 +15,15 @@ fun showReport(workflowInstances: List<WorkflowInstance>, workflows: List<Workfl
 
 fun readFilesProgrammatically(): Triple<List<Workflow>, List<WorkflowInstance>, List<Contractor>> {
     //in order to cover use case `Reading the data files programmatically`
-    getParsedObjectsSequence("./employees.data", getEmployeeConfig(),
+    getParsedObjectsSequence("./data/employees.data", getEmployeeConfig(),
         ::employeeFactory).toList()
 
-    val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
+    val workflows = getParsedObjectsSequence("./data/workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
 
-    val workflowInstances = getParsedObjectsSequence("./workflowInstances.data", getWorkflowInstanceConfig(),
+    val workflowInstances = getParsedObjectsSequence("./data/workflowInstances.data", getWorkflowInstanceConfig(),
         ::workflowInstanceFactory).toList()
 
-    val contractors = getParsedObjectsSequence("./contractors.data", getContractorsConfig(),
+    val contractors = getParsedObjectsSequence("./data/contractors.data", getContractorsConfig(),
         ::contractorFactory).toList()
     return Triple(workflows, workflowInstances, contractors)
 }
