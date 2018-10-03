@@ -2,7 +2,7 @@ package company.challenge.workflows.config
 
 import company.challenge.workflows.Employee
 
-val employeeSourcer: () -> Employee = Employee("", "", "")
+val employeeFactory: Employee get() = Employee("", "", "")
 
 fun getEmployeeConfig() : Map<String, (String, Employee) -> Unit> {
     val setEmployeeId: (String?, Employee) -> Unit = { value, e -> e.employeeId = value!! }

@@ -1,24 +1,17 @@
 package company.challenge.workflows
 
-import company.challenge.workflows.config.getWorkflowConfig
-import company.challenge.workflows.config.getWorkflowInstanceConfig
-import company.challenge.workflows.config.workflowInstanceSourcer
-import company.challenge.workflows.config.workflowSourcer
-import org.assertj.core.api.Assertions
+import company.challenge.workflows.config.*
 import org.assertj.core.api.Assertions.*
-import org.assertj.core.api.Condition
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class BaseCasesTest {
 
     @Test
     fun `should return Workflows with instances`() {
 
-        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), workflowSourcer).toList()
+        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
         val workflowInstances = getParsedObjectsSequence("./workflowInstances.data",
-                getWorkflowInstanceConfig(), workflowInstanceSourcer).toList()
+                getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         val result = getWorkflowWithInstances(workflowInstances, workflows)
         assertThat(result).hasSize(3)
@@ -33,9 +26,9 @@ internal class BaseCasesTest {
     @Test
     fun `should return Workflows with running instance counts`() {
 
-        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), workflowSourcer).toList()
+        val workflows = getParsedObjectsSequence("./workflows.data", getWorkflowConfig(), ::workflowFactory).toList()
         val workflowInstances = getParsedObjectsSequence("./workflowInstances.data",
-                getWorkflowInstanceConfig(), workflowInstanceSourcer).toList()
+                getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
         val result = getWorkflowWithCounts(workflows, workflowInstances)
         assertThat(result).hasSize(3)
@@ -43,5 +36,19 @@ internal class BaseCasesTest {
         assertThat(result).allMatch { it!!.count > 0 }
         assertThat(result.first { it!!.workflow.id == "1"}!!.count).isEqualTo(3)
         assertThat(result.first { it!!.workflow.id == "2"}!!.count).isEqualTo(2)
+    }
+
+    @Test
+    fun `should return Contractors with running instance counts`() {
+
+        val contractors = getParsedObjectsSequence("./contractors.data", getContractorsConfig(),
+                ::contractorFactory).toList()
+        val workflowInstances = getParsedObjectsSequence("./workflowInstances.data",
+                getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
+
+        val result = getContractorsHavingRunningWorkflows(contractors, workflowInstances)
+
+        assertThat(result).hasSize(2)
+        assertThat(result).extracting("contractorName").containsExactly("con99", "con07")
     }
 }

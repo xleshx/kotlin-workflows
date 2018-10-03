@@ -2,7 +2,7 @@ package company.challenge.workflows.config
 
 import company.challenge.workflows.Contractor
 
-val contractorSourcer: () -> Contractor = Contractor("", "", "")
+val contractorFactory: Contractor get() = Contractor("", "", "")
 
 fun getContractorsConfig() : Map<String, (String, Contractor) -> Unit> {
     val setContractorName: (String?, Contractor) -> Unit = { value, e -> e.contractorName = value!! }

@@ -2,7 +2,7 @@ package company.challenge.workflows.config
 
 import company.challenge.workflows.Workflow
 
-val workflowSourcer: () -> Workflow = Workflow("", "", "", "")
+val workflowFactory: Workflow get() = Workflow("", "", "", "")
 
 fun getWorkflowConfig() : Map<String, (String, Workflow) -> Unit> {
 
