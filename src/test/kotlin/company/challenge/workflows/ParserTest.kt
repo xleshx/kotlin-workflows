@@ -20,7 +20,7 @@ class ParserTest {
         val parsed = getParsedObjectsSequence("./workflowInstances.data",
                 getWorkflowInstanceConfig(), ::workflowInstanceFactory).toList()
 
-        assertThat(parsed).hasSize(19)
+        assertThat(parsed).hasSize(18)
         assertThat(parsed).extracting("id")
                 .contains("1524667587190714616", "535828436669789118", "8563780828914013865",
                 "3683228499925040330", "8109038857709595886", "4784917772368473437", "268212283749527254",

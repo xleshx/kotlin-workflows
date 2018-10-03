@@ -3,6 +3,8 @@ package company.challenge.workflows
 import java.io.File
 import kotlin.coroutines.experimental.buildSequence
 
+class CorruptedFileException(message: String?) : Exception(message)
+
 fun <R> getParsedObjectsSequence(fileName: String, conf: Map<String, (String, R) -> Unit>,
                                  factory: () -> R): Sequence<R> {
     return buildSequence {
@@ -12,10 +14,12 @@ fun <R> getParsedObjectsSequence(fileName: String, conf: Map<String, (String, R)
             r.lineSequence().forEach { line ->
                 when {
                     line.startsWith("start") -> {
+                        if (hasStarted) throw CorruptedFileException("Second start before end, filename: $fileName, line: $line")
                         hasStarted = true
                         entity = factory()
                     }
                     line.startsWith("end") -> {
+                        if (!hasStarted) throw CorruptedFileException("End before start, filename: $fileName, line: $line")
                         hasStarted = false
                         yield(entity)
                     }

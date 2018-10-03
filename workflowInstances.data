@@ -59,7 +59,6 @@ start
   id         : 5709038654199052856
   workflowId : 2
   assignee   : f.consultant@example.org
-end
   step       : initial
   status     : RUNNING
 end
